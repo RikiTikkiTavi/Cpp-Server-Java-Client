@@ -27,6 +27,52 @@
 					<DistClean command="/usr/bin/make -j8 -f &quot;/root/Projects/CLionProjects/cppServer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
+			<Target title="cppClient">
+				<Option output="/root/Projects/CLionProjects/cppServer/cmake-build-debug/cppClient" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/root/Projects/CLionProjects/cppServer/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/root/Projects/CLionProjects/cppServer/cmake-build-debug/Makefile&quot;  VERBOSE=1 cppClient"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/root/Projects/CLionProjects/cppServer/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/root/Projects/CLionProjects/cppServer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/root/Projects/CLionProjects/cppServer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="cppClient/fast">
+				<Option output="/root/Projects/CLionProjects/cppServer/cmake-build-debug/cppClient" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/root/Projects/CLionProjects/cppServer/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/root/Projects/CLionProjects/cppServer/cmake-build-debug/Makefile&quot;  VERBOSE=1 cppClient/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/root/Projects/CLionProjects/cppServer/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/root/Projects/CLionProjects/cppServer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/root/Projects/CLionProjects/cppServer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
 			<Target title="edit_cache">
 				<Option working_dir="/root/Projects/CLionProjects/cppServer/cmake-build-debug"/>
 				<Option type="4"/>
@@ -84,7 +130,10 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/root/Projects/CLionProjects/cppServer/main.cpp">
+		<Unit filename="/root/Projects/CLionProjects/cppServer/client/main.cpp">
+			<Option target="cppClient"/>
+		</Unit>
+		<Unit filename="/root/Projects/CLionProjects/cppServer/server/main.cpp">
 			<Option target="cppServer"/>
 		</Unit>
 		<Unit filename="/root/Projects/CLionProjects/cppServer/CMakeLists.txt">

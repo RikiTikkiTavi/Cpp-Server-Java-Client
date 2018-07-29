@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named cppClient
+
+# Build rule for target.
+cppClient: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 cppClient
+.PHONY : cppClient
+
+# fast build rule for target.
+cppClient/fast:
+	$(MAKE) -f CMakeFiles/cppClient.dir/build.make CMakeFiles/cppClient.dir/build
+.PHONY : cppClient/fast
+
+#=============================================================================
 # Target rules for targets named cppServer
 
 # Build rule for target.
@@ -123,32 +136,59 @@ cppServer/fast:
 	$(MAKE) -f CMakeFiles/cppServer.dir/build.make CMakeFiles/cppServer.dir/build
 .PHONY : cppServer/fast
 
-main.o: main.cpp.o
+client/main.o: client/main.cpp.o
 
-.PHONY : main.o
+.PHONY : client/main.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) -f CMakeFiles/cppServer.dir/build.make CMakeFiles/cppServer.dir/main.cpp.o
-.PHONY : main.cpp.o
+client/main.cpp.o:
+	$(MAKE) -f CMakeFiles/cppClient.dir/build.make CMakeFiles/cppClient.dir/client/main.cpp.o
+.PHONY : client/main.cpp.o
 
-main.i: main.cpp.i
+client/main.i: client/main.cpp.i
 
-.PHONY : main.i
+.PHONY : client/main.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles/cppServer.dir/build.make CMakeFiles/cppServer.dir/main.cpp.i
-.PHONY : main.cpp.i
+client/main.cpp.i:
+	$(MAKE) -f CMakeFiles/cppClient.dir/build.make CMakeFiles/cppClient.dir/client/main.cpp.i
+.PHONY : client/main.cpp.i
 
-main.s: main.cpp.s
+client/main.s: client/main.cpp.s
 
-.PHONY : main.s
+.PHONY : client/main.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles/cppServer.dir/build.make CMakeFiles/cppServer.dir/main.cpp.s
-.PHONY : main.cpp.s
+client/main.cpp.s:
+	$(MAKE) -f CMakeFiles/cppClient.dir/build.make CMakeFiles/cppClient.dir/client/main.cpp.s
+.PHONY : client/main.cpp.s
+
+server/main.o: server/main.cpp.o
+
+.PHONY : server/main.o
+
+# target to build an object file
+server/main.cpp.o:
+	$(MAKE) -f CMakeFiles/cppServer.dir/build.make CMakeFiles/cppServer.dir/server/main.cpp.o
+.PHONY : server/main.cpp.o
+
+server/main.i: server/main.cpp.i
+
+.PHONY : server/main.i
+
+# target to preprocess a source file
+server/main.cpp.i:
+	$(MAKE) -f CMakeFiles/cppServer.dir/build.make CMakeFiles/cppServer.dir/server/main.cpp.i
+.PHONY : server/main.cpp.i
+
+server/main.s: server/main.cpp.s
+
+.PHONY : server/main.s
+
+# target to generate assembly for a file
+server/main.cpp.s:
+	$(MAKE) -f CMakeFiles/cppServer.dir/build.make CMakeFiles/cppServer.dir/server/main.cpp.s
+.PHONY : server/main.cpp.s
 
 # Help Target
 help:
@@ -157,11 +197,15 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
+	@echo "... cppClient"
 	@echo "... edit_cache"
 	@echo "... cppServer"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... client/main.o"
+	@echo "... client/main.i"
+	@echo "... client/main.s"
+	@echo "... server/main.o"
+	@echo "... server/main.i"
+	@echo "... server/main.s"
 .PHONY : help
 
 
