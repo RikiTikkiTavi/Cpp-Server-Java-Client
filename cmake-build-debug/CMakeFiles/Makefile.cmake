@@ -16,10 +16,16 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/root/JetBrains/clion-2018.1.6/bin/cmake/share/cmake-3.10/Modules/CMakeLanguageInformation.cmake"
   "/root/JetBrains/clion-2018.1.6/bin/cmake/share/cmake-3.10/Modules/CMakeSystemSpecificInformation.cmake"
   "/root/JetBrains/clion-2018.1.6/bin/cmake/share/cmake-3.10/Modules/CMakeSystemSpecificInitialize.cmake"
+  "/root/JetBrains/clion-2018.1.6/bin/cmake/share/cmake-3.10/Modules/CheckIncludeFile.cmake"
+  "/root/JetBrains/clion-2018.1.6/bin/cmake/share/cmake-3.10/Modules/CheckLibraryExists.cmake"
+  "/root/JetBrains/clion-2018.1.6/bin/cmake/share/cmake-3.10/Modules/CheckSymbolExists.cmake"
   "/root/JetBrains/clion-2018.1.6/bin/cmake/share/cmake-3.10/Modules/Compiler/CMakeCommonCompilerMacros.cmake"
   "/root/JetBrains/clion-2018.1.6/bin/cmake/share/cmake-3.10/Modules/Compiler/GNU-C.cmake"
   "/root/JetBrains/clion-2018.1.6/bin/cmake/share/cmake-3.10/Modules/Compiler/GNU-CXX.cmake"
   "/root/JetBrains/clion-2018.1.6/bin/cmake/share/cmake-3.10/Modules/Compiler/GNU.cmake"
+  "/root/JetBrains/clion-2018.1.6/bin/cmake/share/cmake-3.10/Modules/FindPackageHandleStandardArgs.cmake"
+  "/root/JetBrains/clion-2018.1.6/bin/cmake/share/cmake-3.10/Modules/FindPackageMessage.cmake"
+  "/root/JetBrains/clion-2018.1.6/bin/cmake/share/cmake-3.10/Modules/FindThreads.cmake"
   "/root/JetBrains/clion-2018.1.6/bin/cmake/share/cmake-3.10/Modules/Platform/Linux-GNU-C.cmake"
   "/root/JetBrains/clion-2018.1.6/bin/cmake/share/cmake-3.10/Modules/Platform/Linux-GNU-CXX.cmake"
   "/root/JetBrains/clion-2018.1.6/bin/cmake/share/cmake-3.10/Modules/Platform/Linux-GNU.cmake"
@@ -45,6 +51,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/cppClient.dir/DependInfo.cmake"
+  "CMakeFiles/cppClient1.dir/DependInfo.cmake"
   "CMakeFiles/cppServer.dir/DependInfo.cmake"
+  "CMakeFiles/cppClient2.dir/DependInfo.cmake"
   )

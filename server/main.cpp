@@ -7,18 +7,24 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <thread>
+
+using namespace std;
 
 void error(const char *msg) {
     perror(msg);
     exit(1);
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wmissing-noreturn"
+
 // argc -> Argument count = the number of strings pointed to by argv
 // argv -> Argument vector
-int main(int argc, char *argv[]) {
+
+int * prepareServer(int argc, char *argv[]){
     int sockfd, newsockfd, portno;
     socklen_t clilen;
-    char buffer[256];
     // sockaddr_in -> Structure describing an Internet socket address.
     struct sockaddr_in serv_addr{}, cli_addr{};
     int n;
@@ -78,25 +84,54 @@ int main(int argc, char *argv[]) {
     // So, the original socket file descriptor can continue to be used
     // for accepting new connections while the new socket file descriptor is used for
     // communicating with the connected client.
-    newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
-    if (newsockfd < 0) error("ERROR on accept");
 
-    printf("server: got connection from %s port %d\n", inet_ntoa(cli_addr.sin_addr), ntohs(cli_addr.sin_port));
+    // Server will accept 2 clients
+    static int clients[2];
+    for (int &client : clients) {
+        newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
+        if (newsockfd < 0) error("ERROR on accept");
+        printf("server: got connection from %s port %d\n", inet_ntoa(cli_addr.sin_addr), ntohs(cli_addr.sin_port));
+        client = newsockfd;
+    }
+
+    return clients;
+};
+
+void workWithClient1(int client1, int client2){
+    char buffer[256];
+    string confString = "data sent;\n";
+    while(true){
+        bzero(buffer, 256);
+        int n = read(client1, buffer, 255);
+        if (n < 0) error("ERROR reading from socket");
+        send(client1, confString.c_str(), strlen("Sent to 20"), 0);
+        send(client2, buffer, strlen(buffer), 0);
+    }
+}
+void workWithClient2(int client1, int client2){
+    char buffer[256];
+    while(true){
+        bzero(buffer, 256);
+        int n = read(client2, buffer, 255);
+        if (n < 0) error("ERROR reading from socket");
+        send(client1, buffer, strlen(buffer), 0);
+    }
+}
+
+int main(int argc, char *argv[]) {
+
+    int *clients = prepareServer(argc, argv);
+
+    printf("Starting Multithreading");
+
+    thread workWithClient1_thread(workWithClient1, clients[0], clients[1]);
+    thread workWithClient2_thread(workWithClient2, clients[0], clients[1]);
+
+    workWithClient1_thread.join();
+    workWithClient2_thread.join();
 
 
-    // This send() function sends the 13 bytes of the string to the new socket
-    send(newsockfd, "Hello, world!\n", 13, 0);
-
-    bzero(buffer, 256);
-    /*
-     Read NBYTES into BUF from FD.  Return the
-     number read, -1 for errors or 0 for EOF.
-    */
-    n = read(newsockfd, buffer, 255);
-    if (n < 0) error("ERROR reading from socket");
-    printf("Here is the message: %s\n", buffer);
-
-    close(newsockfd);
-    close(sockfd);
     return 0;
 }
+
+#pragma clang diagnostic pop
