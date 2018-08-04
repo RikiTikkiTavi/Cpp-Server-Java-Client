@@ -9,6 +9,7 @@
 #include <arpa/inet.h>
 #include <thread>
 #include <map>
+#include <iostream>
 
 using namespace std;
 
@@ -42,9 +43,6 @@ void handleClient(int newsockfd, map <string, int> * clientsMap, map <string, th
         int n = read(newsockfd, buffer, 255);
         if (n < 0) error("ERROR reading from socket");
         // Close connection if message is [C_C]
-        if(strcmp(buffer, "[C_C]\n")){
-            break;
-        }
         send(sendToSockfd, buffer, strlen(buffer), 0);
         send(newsockfd, confString, strlen(confString), 0);
     }
@@ -138,8 +136,9 @@ void prepareServer(int argc, char *argv[]){
         if (n < 0) error("ERROR reading from socket");
         string name = string(buffer);
         clientsMap.insert ( pair<string, int>(name, newsockfd) );
+        // Client Accepted
         send(newsockfd, "[C_A]", strlen("[C_A]"), 0);
-        printf("server: It's %s\n", name);
+        cout<<"server: Client name: "<<name;
         //New thread for working with client
         clientThreadsMap[name] = new thread(handleClient, newsockfd, &clientsMap, &clientThreadsMap);
     }

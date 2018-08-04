@@ -36,7 +36,7 @@ int connect(int argc, char *argv[]) {
     struct hostent *server;
 
     if (argc < 3) {
-        fprintf(stderr, "usage %s hostname port\n", argv[0]);
+        fprintf(stderr, "usage %s hostname port name\n", argv[0]);
         exit(0);
     }
     portno = atoi(argv[2]);
@@ -62,8 +62,21 @@ int connect(int argc, char *argv[]) {
 void sendWork(int sockfd) {
     char buffer[256];
     int n;
+    bzero(buffer, 256);
+    cout << "Enter name: ";
+    fgets(buffer, 255, stdin);
+    n = write(sockfd, buffer, strlen(buffer));
+    if (n < 0)
+        error("ERROR writing to socket");
+    cout << "Enter sendTo: ";
+    bzero(buffer, 256);
+    fgets(buffer, 255, stdin);
+    n = write(sockfd, buffer, strlen(buffer));
+    if (n < 0)
+        error("ERROR writing to socket");
     while (true) {
         bzero(buffer, 256);
+        cout << "> ";
         fgets(buffer, 255, stdin);
         n = write(sockfd, buffer, strlen(buffer));
         if (n < 0)
@@ -81,14 +94,12 @@ void receiveWork(int sockfd) {
         n = read(sockfd, buffer, 255);
         if (n < 0)
             error("ERROR reading from socket");
-        cout << buffer << std::endl;
+        cout << "< " << buffer << std::endl;
     }
 }
 
 int main(int argc, char *argv[]) {
     int sockfd = connect(argc, argv);
-
-    printf(">>> Client1 \n");
 
     thread send_thread(sendWork, sockfd);
     thread receive_thread(receiveWork, sockfd);
