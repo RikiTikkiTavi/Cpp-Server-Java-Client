@@ -23,7 +23,7 @@ void error(const char *msg) {
 // argc -> Argument count = the number of strings pointed to by argv
 // argv -> Argument vector
 
-void handleClient(int newsockfd, map <string, int> * clientsMap, map <string, thread> * clientThreadsMap){
+void handleClient(int newsockfd, map <string, int> * clientsMap, map <string, thread*> * clientThreadsMap){
     char buffer[256];
     char confString[] = "[D_S]";
     char nameSetConfString[] = "[N_S]";
@@ -49,7 +49,8 @@ void handleClient(int newsockfd, map <string, int> * clientsMap, map <string, th
         send(newsockfd, confString, strlen(confString), 0);
     }
     close(newsockfd);
-    (*clientThreadsMap)[name].join();
+    map <string, thread*> tempClientThreadsMap = *clientThreadsMap;
+    tempClientThreadsMap[name]->join();
 }
 
 void prepareServer(int argc, char *argv[]){
@@ -144,37 +145,9 @@ void prepareServer(int argc, char *argv[]){
     }
 };
 
-/*void workWithClient1(int client1, int client2){
-    char buffer[256];
-    string confString = "data sent;\n";
-    while(true){
-        bzero(buffer, 256);
-        int n = read(client1, buffer, 255);
-        if (n < 0) error("ERROR reading from socket");
-        send(client2, buffer, strlen(buffer), 0);
-    }
-}
-
-void workWithClient2(int client1, int client2){
-    char buffer[256];
-    while(true){
-        bzero(buffer, 256);
-        int n = read(client2, buffer, 255);
-        if (n < 0) error("ERROR reading from socket");
-        send(client1, buffer, strlen(buffer), 0);
-    }
-}*/
-
 int main(int argc, char *argv[]) {
 
     prepareServer(argc, argv);
-
-    /*thread workWithClient1_thread(workWithClient1, clients[0], clients[1]);
-    thread workWithClient2_thread(workWithClient2, clients[0], clients[1]);*/
-
-    /*workWithClient1_thread.join();
-    workWithClient2_thread.join();*/
-
 
     return 0;
 }
