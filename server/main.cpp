@@ -8,6 +8,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <thread>
+#include <map>
 
 using namespace std;
 
@@ -22,9 +23,39 @@ void error(const char *msg) {
 // argc -> Argument count = the number of strings pointed to by argv
 // argv -> Argument vector
 
-int * prepareServer(int argc, char *argv[]){
+void handleClient(int newsockfd, map <string, int> * clientsMap, map <string, thread> * clientThreadsMap){
+    char buffer[256];
+    char confString[] = "[D_S]";
+    char nameSetConfString[] = "[N_S]";
+
+    // Set sendTo and send back confirmation of success
+    bzero(buffer, 256);
+    int n = read(newsockfd, buffer, 255);
+    if (n < 0) error("ERROR reading from socket");
+    string name = string(buffer);
+    int sendToSockfd = (*clientsMap)[name];
+    send(newsockfd, nameSetConfString, strlen(nameSetConfString), 0);
+
+    // Receive messages and send them to sendTo
+    while(true){
+        bzero(buffer, 256);
+        int n = read(newsockfd, buffer, 255);
+        if (n < 0) error("ERROR reading from socket");
+        // Close connection if message is [C_C]
+        if(strcmp(buffer, "[C_C]\n")){
+            break;
+        }
+        send(sendToSockfd, buffer, strlen(buffer), 0);
+        send(newsockfd, confString, strlen(confString), 0);
+    }
+    close(newsockfd);
+    (*clientThreadsMap)[name].join();
+}
+
+void prepareServer(int argc, char *argv[]){
     int sockfd, newsockfd, portno;
     socklen_t clilen;
+    char buffer[256];
     // sockaddr_in -> Structure describing an Internet socket address.
     struct sockaddr_in serv_addr{}, cli_addr{};
     int n;
@@ -86,28 +117,44 @@ int * prepareServer(int argc, char *argv[]){
     // communicating with the connected client.
 
     // Server will accept 2 clients
-    static int clients[2];
+    /*static int clients[2];
     for (int &client : clients) {
         newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
         if (newsockfd < 0) error("ERROR on accept");
         printf("server: got connection from %s port %d\n", inet_ntoa(cli_addr.sin_addr), ntohs(cli_addr.sin_port));
         client = newsockfd;
-    }
+    }*/
 
-    return clients;
+    map <string, int> clientsMap;
+    map <string, thread*> clientThreadsMap;
+
+    while(true){
+        newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
+        if (newsockfd < 0) error("ERROR on accept");
+        printf("server: got connection from %s port %d\n", inet_ntoa(cli_addr.sin_addr), ntohs(cli_addr.sin_port));
+        bzero(buffer, 256);
+        int n = read(newsockfd, buffer, 255);
+        if (n < 0) error("ERROR reading from socket");
+        string name = string(buffer);
+        clientsMap.insert ( pair<string, int>(name, newsockfd) );
+        send(newsockfd, "[C_A]", strlen("[C_A]"), 0);
+        printf("server: It's %s\n", name);
+        //New thread for working with client
+        clientThreadsMap[name] = new thread(handleClient, newsockfd, &clientsMap, &clientThreadsMap);
+    }
 };
 
-void workWithClient1(int client1, int client2){
+/*void workWithClient1(int client1, int client2){
     char buffer[256];
     string confString = "data sent;\n";
     while(true){
         bzero(buffer, 256);
         int n = read(client1, buffer, 255);
         if (n < 0) error("ERROR reading from socket");
-        send(client1, confString.c_str(), strlen("Sent to 20"), 0);
         send(client2, buffer, strlen(buffer), 0);
     }
 }
+
 void workWithClient2(int client1, int client2){
     char buffer[256];
     while(true){
@@ -116,19 +163,17 @@ void workWithClient2(int client1, int client2){
         if (n < 0) error("ERROR reading from socket");
         send(client1, buffer, strlen(buffer), 0);
     }
-}
+}*/
 
 int main(int argc, char *argv[]) {
 
-    int *clients = prepareServer(argc, argv);
+    prepareServer(argc, argv);
 
-    printf("Starting Multithreading");
+    /*thread workWithClient1_thread(workWithClient1, clients[0], clients[1]);
+    thread workWithClient2_thread(workWithClient2, clients[0], clients[1]);*/
 
-    thread workWithClient1_thread(workWithClient1, clients[0], clients[1]);
-    thread workWithClient2_thread(workWithClient2, clients[0], clients[1]);
-
-    workWithClient1_thread.join();
-    workWithClient2_thread.join();
+    /*workWithClient1_thread.join();
+    workWithClient2_thread.join();*/
 
 
     return 0;

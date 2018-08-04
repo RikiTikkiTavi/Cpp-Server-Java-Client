@@ -85,10 +85,6 @@ void receiveWork(int sockfd){
 
 }
 
-void testFun(){
-    printf("Hi from THREAD");
-}
-
 int main(int argc, char *argv[]) {
     int sockfd = connect(argc, argv);
 
