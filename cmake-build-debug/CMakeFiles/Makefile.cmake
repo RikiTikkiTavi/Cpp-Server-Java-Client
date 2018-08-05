@@ -51,7 +51,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/cppClient1.dir/DependInfo.cmake"
+  "CMakeFiles/cppClient.dir/DependInfo.cmake"
   "CMakeFiles/cppServer.dir/DependInfo.cmake"
-  "CMakeFiles/cppClient2.dir/DependInfo.cmake"
   )

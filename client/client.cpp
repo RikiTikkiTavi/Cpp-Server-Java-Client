@@ -94,6 +94,9 @@ void receiveWork(int sockfd) {
         n = read(sockfd, buffer, 255);
         if (n < 0)
             error("ERROR reading from socket");
+        if(buffer[0]==0){
+            break;
+        }
         cout << "< " << buffer << std::endl;
     }
 }

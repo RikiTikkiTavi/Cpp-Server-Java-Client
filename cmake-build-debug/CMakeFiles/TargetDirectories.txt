@@ -1,5 +1,4 @@
 /root/Projects/CLionProjects/cppServer/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/root/Projects/CLionProjects/cppServer/cmake-build-debug/CMakeFiles/cppClient1.dir
-/root/Projects/CLionProjects/cppServer/cmake-build-debug/CMakeFiles/cppServer.dir
-/root/Projects/CLionProjects/cppServer/cmake-build-debug/CMakeFiles/cppClient2.dir
+/root/Projects/CLionProjects/cppServer/cmake-build-debug/CMakeFiles/cppClient.dir
 /root/Projects/CLionProjects/cppServer/cmake-build-debug/CMakeFiles/edit_cache.dir
+/root/Projects/CLionProjects/cppServer/cmake-build-debug/CMakeFiles/cppServer.dir

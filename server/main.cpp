@@ -24,7 +24,8 @@ void error(const char *msg) {
 // argc -> Argument count = the number of strings pointed to by argv
 // argv -> Argument vector
 
-void handleClient(int newsockfd, map <string, int> * clientsMap, map <string, thread*> * clientThreadsMap){
+void handleClient(int newsockfd, map<string, int> *clientsMap, map<string, thread *> *clientThreadsMap,
+                  const string myName) {
     char buffer[256];
     char confString[] = "[D_S]";
     char nameSetConfString[] = "[N_S]";
@@ -38,20 +39,36 @@ void handleClient(int newsockfd, map <string, int> * clientsMap, map <string, th
     send(newsockfd, nameSetConfString, strlen(nameSetConfString), 0);
 
     // Receive messages and send them to sendTo
-    while(true){
+    while (true) {
         bzero(buffer, 256);
         int n = read(newsockfd, buffer, 255);
         if (n < 0) error("ERROR reading from socket");
+        if(buffer[0]==0){
+            break;
+        }
         // Close connection if message is [C_C]
-        send(sendToSockfd, buffer, strlen(buffer), 0);
-        send(newsockfd, confString, strlen(confString), 0);
+        try {
+            send(sendToSockfd, buffer, strlen(buffer), 0);
+        } catch (exception &e) {
+            cout << "Error sending confString \n";
+            cout << e.what();
+            break;
+        }
+
+        try {
+            send(newsockfd, confString, strlen(confString), 0);
+        } catch (exception &e) {
+            cout << "Error sending message from: " << myName << "to: " << name;
+            cout << e.what();
+            break;
+        }
     }
     close(newsockfd);
-    map <string, thread*> tempClientThreadsMap = *clientThreadsMap;
+    map<string, thread *> tempClientThreadsMap = *clientThreadsMap;
     tempClientThreadsMap[name]->join();
 }
 
-void prepareServer(int argc, char *argv[]){
+void prepareServer(int argc, char *argv[]) {
     int sockfd, newsockfd, portno;
     socklen_t clilen;
     char buffer[256];
@@ -124,10 +141,10 @@ void prepareServer(int argc, char *argv[]){
         client = newsockfd;
     }*/
 
-    map <string, int> clientsMap;
-    map <string, thread*> clientThreadsMap;
+    map<string, int> clientsMap;
+    map<string, thread *> clientThreadsMap;
 
-    while(true){
+    while (true) {
         newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
         if (newsockfd < 0) error("ERROR on accept");
         printf("server: got connection from %s port %d\n", inet_ntoa(cli_addr.sin_addr), ntohs(cli_addr.sin_port));
@@ -135,12 +152,12 @@ void prepareServer(int argc, char *argv[]){
         int n = read(newsockfd, buffer, 255);
         if (n < 0) error("ERROR reading from socket");
         string name = string(buffer);
-        clientsMap.insert ( pair<string, int>(name, newsockfd) );
+        clientsMap.insert(pair<string, int>(name, newsockfd));
         // Client Accepted
         send(newsockfd, "[C_A]", strlen("[C_A]"), 0);
-        cout<<"server: Client name: "<<name;
+        cout << "server: Client name: " << name;
         //New thread for working with client
-        clientThreadsMap[name] = new thread(handleClient, newsockfd, &clientsMap, &clientThreadsMap);
+        clientThreadsMap[name] = new thread(handleClient, newsockfd, &clientsMap, &clientThreadsMap, name);
     }
 };
 

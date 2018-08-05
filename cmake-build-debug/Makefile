@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named cppClient1
+# Target rules for targets named cppClient
 
 # Build rule for target.
-cppClient1: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 cppClient1
-.PHONY : cppClient1
+cppClient: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 cppClient
+.PHONY : cppClient
 
 # fast build rule for target.
-cppClient1/fast:
-	$(MAKE) -f CMakeFiles/cppClient1.dir/build.make CMakeFiles/cppClient1.dir/build
-.PHONY : cppClient1/fast
+cppClient/fast:
+	$(MAKE) -f CMakeFiles/cppClient.dir/build.make CMakeFiles/cppClient.dir/build
+.PHONY : cppClient/fast
 
 #=============================================================================
 # Target rules for targets named cppServer
@@ -136,72 +136,32 @@ cppServer/fast:
 	$(MAKE) -f CMakeFiles/cppServer.dir/build.make CMakeFiles/cppServer.dir/build
 .PHONY : cppServer/fast
 
-#=============================================================================
-# Target rules for targets named cppClient2
+client/client.o: client/client.cpp.o
 
-# Build rule for target.
-cppClient2: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 cppClient2
-.PHONY : cppClient2
-
-# fast build rule for target.
-cppClient2/fast:
-	$(MAKE) -f CMakeFiles/cppClient2.dir/build.make CMakeFiles/cppClient2.dir/build
-.PHONY : cppClient2/fast
-
-client/client1.o: client/client1.cpp.o
-
-.PHONY : client/client1.o
+.PHONY : client/client.o
 
 # target to build an object file
-client/client1.cpp.o:
-	$(MAKE) -f CMakeFiles/cppClient1.dir/build.make CMakeFiles/cppClient1.dir/client/client1.cpp.o
-.PHONY : client/client1.cpp.o
+client/client.cpp.o:
+	$(MAKE) -f CMakeFiles/cppClient.dir/build.make CMakeFiles/cppClient.dir/client/client.cpp.o
+.PHONY : client/client.cpp.o
 
-client/client1.i: client/client1.cpp.i
+client/client.i: client/client.cpp.i
 
-.PHONY : client/client1.i
-
-# target to preprocess a source file
-client/client1.cpp.i:
-	$(MAKE) -f CMakeFiles/cppClient1.dir/build.make CMakeFiles/cppClient1.dir/client/client1.cpp.i
-.PHONY : client/client1.cpp.i
-
-client/client1.s: client/client1.cpp.s
-
-.PHONY : client/client1.s
-
-# target to generate assembly for a file
-client/client1.cpp.s:
-	$(MAKE) -f CMakeFiles/cppClient1.dir/build.make CMakeFiles/cppClient1.dir/client/client1.cpp.s
-.PHONY : client/client1.cpp.s
-
-client/client2.o: client/client2.cpp.o
-
-.PHONY : client/client2.o
-
-# target to build an object file
-client/client2.cpp.o:
-	$(MAKE) -f CMakeFiles/cppClient2.dir/build.make CMakeFiles/cppClient2.dir/client/client2.cpp.o
-.PHONY : client/client2.cpp.o
-
-client/client2.i: client/client2.cpp.i
-
-.PHONY : client/client2.i
+.PHONY : client/client.i
 
 # target to preprocess a source file
-client/client2.cpp.i:
-	$(MAKE) -f CMakeFiles/cppClient2.dir/build.make CMakeFiles/cppClient2.dir/client/client2.cpp.i
-.PHONY : client/client2.cpp.i
+client/client.cpp.i:
+	$(MAKE) -f CMakeFiles/cppClient.dir/build.make CMakeFiles/cppClient.dir/client/client.cpp.i
+.PHONY : client/client.cpp.i
 
-client/client2.s: client/client2.cpp.s
+client/client.s: client/client.cpp.s
 
-.PHONY : client/client2.s
+.PHONY : client/client.s
 
 # target to generate assembly for a file
-client/client2.cpp.s:
-	$(MAKE) -f CMakeFiles/cppClient2.dir/build.make CMakeFiles/cppClient2.dir/client/client2.cpp.s
-.PHONY : client/client2.cpp.s
+client/client.cpp.s:
+	$(MAKE) -f CMakeFiles/cppClient.dir/build.make CMakeFiles/cppClient.dir/client/client.cpp.s
+.PHONY : client/client.cpp.s
 
 server/main.o: server/main.cpp.o
 
@@ -237,16 +197,12 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... cppClient1"
-	@echo "... cppServer"
-	@echo "... cppClient2"
+	@echo "... cppClient"
 	@echo "... edit_cache"
-	@echo "... client/client1.o"
-	@echo "... client/client1.i"
-	@echo "... client/client1.s"
-	@echo "... client/client2.o"
-	@echo "... client/client2.i"
-	@echo "... client/client2.s"
+	@echo "... cppServer"
+	@echo "... client/client.o"
+	@echo "... client/client.i"
+	@echo "... client/client.s"
 	@echo "... server/main.o"
 	@echo "... server/main.i"
 	@echo "... server/main.s"
