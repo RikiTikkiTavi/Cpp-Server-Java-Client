@@ -30,6 +30,17 @@ void handleClient(int newsockfd, map<string, int> *clientsMap, map<string, threa
     char confString[] = "[D_S]";
     char nameSetConfString[] = "[N_S]";
 
+    // Send back available users
+    // TODO: Transform clientsMap object to JSON
+    string availableUsers;
+    for(pair <string, int> user : (*clientsMap)){
+        string userName = (user.first);
+        availableUsers += userName + ", ";
+    }
+    availableUsers = "[ " + availableUsers + "]";
+    // Transform availableUsers into char array
+    send(newsockfd, availableUsers, strlen(availableUsersChar), 0);
+
     // Set sendTo and send back confirmation of success
     bzero(buffer, 256);
     int n = read(newsockfd, buffer, 255);
@@ -43,7 +54,7 @@ void handleClient(int newsockfd, map<string, int> *clientsMap, map<string, threa
         bzero(buffer, 256);
         int n = read(newsockfd, buffer, 255);
         if (n < 0) error("ERROR reading from socket");
-        if(buffer[0]==0){
+        if (buffer[0] == 0) {
             break;
         }
         // Close connection if message is [C_C]
@@ -65,7 +76,6 @@ void handleClient(int newsockfd, map<string, int> *clientsMap, map<string, threa
     }
     close(newsockfd);
     map<string, thread *> tempClientThreadsMap = *clientThreadsMap;
-    tempClientThreadsMap[name]->join();
 }
 
 void prepareServer(int argc, char *argv[]) {
@@ -155,7 +165,7 @@ void prepareServer(int argc, char *argv[]) {
         clientsMap.insert(pair<string, int>(name, newsockfd));
         // Client Accepted
         send(newsockfd, "[C_A]", strlen("[C_A]"), 0);
-        cout << "server: Client name: " << name;
+        cout << "server: [C_A] Client name: " << name;
         //New thread for working with client
         clientThreadsMap[name] = new thread(handleClient, newsockfd, &clientsMap, &clientThreadsMap, name);
     }
