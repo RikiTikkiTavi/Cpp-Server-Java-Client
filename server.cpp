@@ -24,6 +24,19 @@ void error(const char *msg) {
 // argc -> Argument count = the number of strings pointed to by argv
 // argv -> Argument vector
 
+char *getAvailableUsers (map<string, int> *clientsMap){
+    string availableUsers;
+    for(pair <string, int> user : (*clientsMap)){
+        string userName = (user.first);
+        availableUsers += userName + ", ";
+    }
+    availableUsers = "[ " + availableUsers + "]";
+    char *availableUsersChar = new char[availableUsers.length() + 1];
+    strcpy(availableUsersChar, availableUsers.c_str());
+
+    return availableUsersChar;
+}
+
 void handleClient(int newsockfd, map<string, int> *clientsMap, map<string, thread *> *clientThreadsMap,
                   const string myName) {
     char buffer[256];
@@ -32,20 +45,16 @@ void handleClient(int newsockfd, map<string, int> *clientsMap, map<string, threa
 
     // Send back available users
     // TODO: Transform clientsMap object to JSON
-    string availableUsers;
-    for(pair <string, int> user : (*clientsMap)){
-        string userName = (user.first);
-        availableUsers += userName + ", ";
-    }
-    availableUsers = "[ " + availableUsers + "]";
-    // Transform availableUsers into char array
-    send(newsockfd, availableUsers, strlen(availableUsersChar), 0);
+    char *availableUsersChar = getAvailableUsers(clientsMap);
+    // Transform availableUsers into char array and send back
+    send(newsockfd, availableUsersChar, strlen(availableUsersChar), 0);
 
     // Set sendTo and send back confirmation of success
     bzero(buffer, 256);
     int n = read(newsockfd, buffer, 255);
     if (n < 0) error("ERROR reading from socket");
     string name = string(buffer);
+    char closedConnectionString[] = "[U2_C_C]";
     int sendToSockfd = (*clientsMap)[name];
     send(newsockfd, nameSetConfString, strlen(nameSetConfString), 0);
 
@@ -54,8 +63,14 @@ void handleClient(int newsockfd, map<string, int> *clientsMap, map<string, threa
         bzero(buffer, 256);
         int n = read(newsockfd, buffer, 255);
         if (n < 0) error("ERROR reading from socket");
-        if (buffer[0] == 0) {
+        if (n == 0) {
+            //Send message to user2 about closed connection
+            send(sendToSockfd, closedConnectionString, strlen(closedConnectionString), 0);
             break;
+        }
+        if(strncmp(buffer, "[U2_C_C]", 7)!=0){
+            char * availableUsersChar = getAvailableUsers(clientsMap);
+            send(newsockfd, availableUsersChar, strlen(availableUsersChar), 0);
         }
         // Close connection if message is [C_C]
         try {
@@ -77,7 +92,6 @@ void handleClient(int newsockfd, map<string, int> *clientsMap, map<string, threa
     close(newsockfd);
     map<string, thread *> tempClientThreadsMap = *clientThreadsMap;
 }
-
 void prepareServer(int argc, char *argv[]) {
     int sockfd, newsockfd, portno;
     socklen_t clilen;

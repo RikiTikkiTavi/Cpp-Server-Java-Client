@@ -136,59 +136,59 @@ cppServer/fast:
 	$(MAKE) -f CMakeFiles/cppServer.dir/build.make CMakeFiles/cppServer.dir/build
 .PHONY : cppServer/fast
 
-client/client.o: client/client.cpp.o
+client.o: client.cpp.o
 
-.PHONY : client/client.o
-
-# target to build an object file
-client/client.cpp.o:
-	$(MAKE) -f CMakeFiles/cppClient.dir/build.make CMakeFiles/cppClient.dir/client/client.cpp.o
-.PHONY : client/client.cpp.o
-
-client/client.i: client/client.cpp.i
-
-.PHONY : client/client.i
-
-# target to preprocess a source file
-client/client.cpp.i:
-	$(MAKE) -f CMakeFiles/cppClient.dir/build.make CMakeFiles/cppClient.dir/client/client.cpp.i
-.PHONY : client/client.cpp.i
-
-client/client.s: client/client.cpp.s
-
-.PHONY : client/client.s
-
-# target to generate assembly for a file
-client/client.cpp.s:
-	$(MAKE) -f CMakeFiles/cppClient.dir/build.make CMakeFiles/cppClient.dir/client/client.cpp.s
-.PHONY : client/client.cpp.s
-
-server/main.o: server/main.cpp.o
-
-.PHONY : server/main.o
+.PHONY : client.o
 
 # target to build an object file
-server/main.cpp.o:
-	$(MAKE) -f CMakeFiles/cppServer.dir/build.make CMakeFiles/cppServer.dir/server/main.cpp.o
-.PHONY : server/main.cpp.o
+client.cpp.o:
+	$(MAKE) -f CMakeFiles/cppClient.dir/build.make CMakeFiles/cppClient.dir/client.cpp.o
+.PHONY : client.cpp.o
 
-server/main.i: server/main.cpp.i
+client.i: client.cpp.i
 
-.PHONY : server/main.i
+.PHONY : client.i
 
 # target to preprocess a source file
-server/main.cpp.i:
-	$(MAKE) -f CMakeFiles/cppServer.dir/build.make CMakeFiles/cppServer.dir/server/main.cpp.i
-.PHONY : server/main.cpp.i
+client.cpp.i:
+	$(MAKE) -f CMakeFiles/cppClient.dir/build.make CMakeFiles/cppClient.dir/client.cpp.i
+.PHONY : client.cpp.i
 
-server/main.s: server/main.cpp.s
+client.s: client.cpp.s
 
-.PHONY : server/main.s
+.PHONY : client.s
 
 # target to generate assembly for a file
-server/main.cpp.s:
-	$(MAKE) -f CMakeFiles/cppServer.dir/build.make CMakeFiles/cppServer.dir/server/main.cpp.s
-.PHONY : server/main.cpp.s
+client.cpp.s:
+	$(MAKE) -f CMakeFiles/cppClient.dir/build.make CMakeFiles/cppClient.dir/client.cpp.s
+.PHONY : client.cpp.s
+
+server.o: server.cpp.o
+
+.PHONY : server.o
+
+# target to build an object file
+server.cpp.o:
+	$(MAKE) -f CMakeFiles/cppServer.dir/build.make CMakeFiles/cppServer.dir/server.cpp.o
+.PHONY : server.cpp.o
+
+server.i: server.cpp.i
+
+.PHONY : server.i
+
+# target to preprocess a source file
+server.cpp.i:
+	$(MAKE) -f CMakeFiles/cppServer.dir/build.make CMakeFiles/cppServer.dir/server.cpp.i
+.PHONY : server.cpp.i
+
+server.s: server.cpp.s
+
+.PHONY : server.s
+
+# target to generate assembly for a file
+server.cpp.s:
+	$(MAKE) -f CMakeFiles/cppServer.dir/build.make CMakeFiles/cppServer.dir/server.cpp.s
+.PHONY : server.cpp.s
 
 # Help Target
 help:
@@ -200,12 +200,12 @@ help:
 	@echo "... cppClient"
 	@echo "... edit_cache"
 	@echo "... cppServer"
-	@echo "... client/client.o"
-	@echo "... client/client.i"
-	@echo "... client/client.s"
-	@echo "... server/main.o"
-	@echo "... server/main.i"
-	@echo "... server/main.s"
+	@echo "... client.o"
+	@echo "... client.i"
+	@echo "... client.s"
+	@echo "... server.o"
+	@echo "... server.i"
+	@echo "... server.s"
 .PHONY : help
 
 

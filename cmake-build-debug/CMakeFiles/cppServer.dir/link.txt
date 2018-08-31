@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/cppServer.dir/server/main.cpp.o  -o cppServer -lpthread 
+/usr/bin/c++  -g   CMakeFiles/cppServer.dir/server.cpp.o  -o cppServer -lpthread 

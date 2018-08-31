@@ -57,38 +57,38 @@ include CMakeFiles/cppServer.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/cppServer.dir/flags.make
 
-CMakeFiles/cppServer.dir/server/main.cpp.o: CMakeFiles/cppServer.dir/flags.make
-CMakeFiles/cppServer.dir/server/main.cpp.o: ../server/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/Projects/CLionProjects/cppServer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cppServer.dir/server/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cppServer.dir/server/main.cpp.o -c /root/Projects/CLionProjects/cppServer/server/main.cpp
+CMakeFiles/cppServer.dir/server.cpp.o: CMakeFiles/cppServer.dir/flags.make
+CMakeFiles/cppServer.dir/server.cpp.o: ../server.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/Projects/CLionProjects/cppServer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cppServer.dir/server.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cppServer.dir/server.cpp.o -c /root/Projects/CLionProjects/cppServer/server.cpp
 
-CMakeFiles/cppServer.dir/server/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cppServer.dir/server/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /root/Projects/CLionProjects/cppServer/server/main.cpp > CMakeFiles/cppServer.dir/server/main.cpp.i
+CMakeFiles/cppServer.dir/server.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cppServer.dir/server.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /root/Projects/CLionProjects/cppServer/server.cpp > CMakeFiles/cppServer.dir/server.cpp.i
 
-CMakeFiles/cppServer.dir/server/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cppServer.dir/server/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /root/Projects/CLionProjects/cppServer/server/main.cpp -o CMakeFiles/cppServer.dir/server/main.cpp.s
+CMakeFiles/cppServer.dir/server.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cppServer.dir/server.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /root/Projects/CLionProjects/cppServer/server.cpp -o CMakeFiles/cppServer.dir/server.cpp.s
 
-CMakeFiles/cppServer.dir/server/main.cpp.o.requires:
+CMakeFiles/cppServer.dir/server.cpp.o.requires:
 
-.PHONY : CMakeFiles/cppServer.dir/server/main.cpp.o.requires
+.PHONY : CMakeFiles/cppServer.dir/server.cpp.o.requires
 
-CMakeFiles/cppServer.dir/server/main.cpp.o.provides: CMakeFiles/cppServer.dir/server/main.cpp.o.requires
-	$(MAKE) -f CMakeFiles/cppServer.dir/build.make CMakeFiles/cppServer.dir/server/main.cpp.o.provides.build
-.PHONY : CMakeFiles/cppServer.dir/server/main.cpp.o.provides
+CMakeFiles/cppServer.dir/server.cpp.o.provides: CMakeFiles/cppServer.dir/server.cpp.o.requires
+	$(MAKE) -f CMakeFiles/cppServer.dir/build.make CMakeFiles/cppServer.dir/server.cpp.o.provides.build
+.PHONY : CMakeFiles/cppServer.dir/server.cpp.o.provides
 
-CMakeFiles/cppServer.dir/server/main.cpp.o.provides.build: CMakeFiles/cppServer.dir/server/main.cpp.o
+CMakeFiles/cppServer.dir/server.cpp.o.provides.build: CMakeFiles/cppServer.dir/server.cpp.o
 
 
 # Object files for target cppServer
 cppServer_OBJECTS = \
-"CMakeFiles/cppServer.dir/server/main.cpp.o"
+"CMakeFiles/cppServer.dir/server.cpp.o"
 
 # External object files for target cppServer
 cppServer_EXTERNAL_OBJECTS =
 
-cppServer: CMakeFiles/cppServer.dir/server/main.cpp.o
+cppServer: CMakeFiles/cppServer.dir/server.cpp.o
 cppServer: CMakeFiles/cppServer.dir/build.make
 cppServer: CMakeFiles/cppServer.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/root/Projects/CLionProjects/cppServer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable cppServer"
@@ -99,7 +99,7 @@ CMakeFiles/cppServer.dir/build: cppServer
 
 .PHONY : CMakeFiles/cppServer.dir/build
 
-CMakeFiles/cppServer.dir/requires: CMakeFiles/cppServer.dir/server/main.cpp.o.requires
+CMakeFiles/cppServer.dir/requires: CMakeFiles/cppServer.dir/server.cpp.o.requires
 
 .PHONY : CMakeFiles/cppServer.dir/requires
 

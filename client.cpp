@@ -97,6 +97,10 @@ void receiveWork(int sockfd) {
         if(buffer[0]==0){
             break;
         }
+        if(strncmp(buffer, "[U2_C_C]", 7) != 0){
+            n = write(sockfd, "[U2_C_C]", strlen("[U2_C_C]"));
+            if(n<0) error("ERROR writing to socket");
+        }
         cout << "< " << buffer << std::endl;
     }
 }
